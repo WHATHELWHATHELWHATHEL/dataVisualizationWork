@@ -45,9 +45,6 @@ var util  = (function(){
         getBasic:function(){
             return "this is util module provide utilties for this project";
         },
-        sortByCondition:function(data,){
-
-        },
         clusterByConditionFunction:function(data,generateClusterIdFunc){
             var result = [];
             data.forEach(function(item,index){

@@ -18,13 +18,24 @@ function parseCSVToJS(data){
         lines.forEach(function(item,index){
             var parsedLine = item.replace(/,\s/g,"_");
             var dataItems = parsedLine.split(",");
+            var cityInfo = (function(locationString){
+                                locationString = locationString.replace(/"/g,"");
+                                return locationString.split("_");
+                            })(dataItems[1]);
+
             if(dataItems.length >= 7){
                 var tempObj = {
                     SchoolName:dataItems[0],
-                    Location:(function(locationString){
-                        locationString = locationString.replace(/"/g,"");
-                        return locationString.split("_");
-                    })(dataItems[1]),
+                    City:(function(cityInfoArray){
+                        return cityInfoArray[0];
+                    })(cityInfo),
+                    Province:(function(cityInfoArray){
+                        if(cityInfoArray.length > 1){
+                            return cityInfoArray[1];
+                        }else{
+                            return cityInfoArray[0];
+                        }
+                    })(cityInfo),
                     GlobalRanking:dataItems[2],
                     GlobalScores:dataItems[3],
                     SubjectName:dataItems[4],

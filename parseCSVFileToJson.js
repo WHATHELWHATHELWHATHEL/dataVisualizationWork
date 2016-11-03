@@ -18,12 +18,11 @@ function parseCSVToJS(data){
         lines.forEach(function(item,index){
             var parsedLine = item.replace(/,\s/g,"_");
             var dataItems = parsedLine.split(",");
-            var cityInfo = (function(locationString){
-                                locationString = locationString.replace(/"/g,"");
-                                return locationString.split("_");
-                            })(dataItems[1]);
-
             if(dataItems.length >= 7){
+                var cityInfo = (function(locationString){
+                                    locationString = locationString.replace(/"/g,"");
+                                    return locationString.split("_");
+                                })(dataItems[1]);
                 var tempObj = {
                     SchoolName:dataItems[0],
                     City:(function(cityInfoArray){

@@ -77,6 +77,35 @@ var util  = (function(){
                     return item.SubjectName;
                 }
             );
+        },
+        clusterByProvinceName:function(data){
+            return util.clusterByConditionFunction(
+                data,
+                function(item){
+                    return item.Province;
+                }
+            );
+        },
+        clusterByProvinceNameAndSubject:function(data){
+            return util.clusterByConditionFunction(
+                data,
+                function(item){
+                    return item.Province+"_"+item.SubjectName;
+                }
+            );
+        },
+        generateRenderData:function(data,positionMap,generateClusterIdFunc,generateScoreFunc,generateScoreColorFunc){
+            var result = [];
+            data.forEach(function(item,index){
+                result.push({
+                    name:generateClusterIdFunc(item),
+                    positionX:positionMap[generateClusterIdFunc(item)].x+"px",
+                    positionY:positionMap[generateClusterIdFunc(item)].y+"px",
+                    barData:generateScoreFunc(item),
+                    color:generateScoreColorFunc(item)
+                });
+            });
+            return result;
         }
     };
 })();

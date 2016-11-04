@@ -81,6 +81,7 @@ provinceData.forEach(function(item,index){
     temp.itemClusteredBySubject = util.clusterBySubjectName(items);
     provinceSubjectData.push(temp);
 });
+//省份-全局成绩平均值
 var provinceGlobalSocreRenderData = util.generateRenderData(
     provinceSubjectData,
     provincePositionMap,
@@ -107,6 +108,80 @@ var provinceGlobalSocreRenderData = util.generateRenderData(
     }
 );
 
+var provinceChemistrySocreRenderData = util.generateRenderData(
+    provinceSubjectData,
+    provincePositionMap,
+    function(itemClusterdByCity){
+        return itemClusterdByCity.provinceName;
+    },
+    function(itemClusterdByCity){
+        var subjectCluster = itemClusterdByCity.itemClusteredBySubject;
+        var sum = 0;
+        var count = 0;
+        subjectCluster.forEach(function(subjectItem,index){
+            if("Chemistry" === subjectItem.clusterId){
+                var schoolItems = subjectItem.clusterItems;
+                schoolItems.forEach(function(schoolItem,index){
+                    sum += parseFloat(schoolItem.SubjectScores);
+                    count++;
+                });
+            }
+        });
+        return Math.floor(sum/count);
+    },
+    function(itemClusterdByCity){
+        return "rgb("+parseInt((Math.random()*255)%155+100)
+                 +","+parseInt((Math.random()*255)%155+100)
+                 +","+parseInt((Math.random()*255)%155+100)+")";
+    }
+);
+
+//生成全国范围指定科目的渲染数据，如果SubjectName为空，则为全部数据
+function generateNationScaleSubjectScoreRenderData(provinceData,provincePositionMap,subjectName){
+    var result = util.generateRenderData(
+        provinceSubjectData,
+        provincePositionMap,
+        function(itemClusterdByCity){
+            return itemClusterdByCity.provinceName;
+        },
+        function(itemClusterdByCity){
+            var subjectCluster = itemClusterdByCity.itemClusteredBySubject;
+            var sum = 0 ;
+            var count = 0;
+            subjectCluster.forEach(function(subjectItem,index){
+                var schoolItems = subjectItem.clusterItems;
+                schoolItems.forEach(function(schoolItem,index){
+                    if(!subjectName){
+                        sum += parseFloat(schoolItem.GlobalScores);
+                        count++;
+                    }else if(subjectName === subjectItem.clusterId){
+                        sum += parseFloat(schoolItem.SubjectScores);
+                        count++;
+                    }
+                });
+            });
+            return Math.floor(sum/count);
+        },
+        function(itemClusterdByCity){
+            return "rgb("+parseInt((Math.random()*255)%155+100)
+                     +","+parseInt((Math.random()*255)%155+100)
+                     +","+parseInt((Math.random()*255)%155+100)+")";
+        }
+    );
+    return result;
+}
+
+var globalScoreRenderData = generateNationScaleSubjectScoreRenderData(
+    provinceData,
+    provincePositionMap
+);
+
+var chemistryScoreData = generateNationScaleSubjectScoreRenderData(
+    provinceData,
+    provincePositionMap,
+    "Chemistry"
+);
+
 function renderToCanvas(renderDataList){
     var mapCanvas = document.getElementById("mapCanvas");
     mapCanvas.innerHTML = "";
@@ -122,4 +197,4 @@ function renderToCanvas(renderDataList){
     });
     mapCanvas.innerHTML = elementString;
 }
-renderToCanvas(provinceGlobalSocreRenderData);
+//renderToCanvas(provinceGlobalSocreRenderData);

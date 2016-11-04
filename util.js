@@ -99,8 +99,8 @@ var util  = (function(){
             data.forEach(function(item,index){
                 result.push({
                     name:generateClusterIdFunc(item),
-                    positionX:positionMap[generateClusterIdFunc(item)].x+"px",
-                    positionY:positionMap[generateClusterIdFunc(item)].y+"px",
+                    positionX:(positionMap[generateClusterIdFunc(item)].x-3)+"px",
+                    positionY:(positionMap[generateClusterIdFunc(item)].y-generateScoreFunc(item))+"px",
                     barData:generateScoreFunc(item),
                     color:generateScoreColorFunc(item)
                 });

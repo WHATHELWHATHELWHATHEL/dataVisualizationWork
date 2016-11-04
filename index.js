@@ -5,68 +5,68 @@ console.log("schoolData load success");
 
 var provincePositionMap = {
     "Beijing":{
-        x:1,
-        y:1,
+        x:647,
+        y:330,
         schoolPositionMap:{}
     },
     "Shanghai":{
-        x:2,
-        y:2,
+        x:762,
+        y:485,
         schoolPositionMap:{}
     },
     "Anhui":{
-        x:3,
-        y:3,
+        x:682,
+        y:489,
         schoolPositionMap:{}
     },
     "Zhejiang":{
-        x:4,
-        y:4,
+        x:727,
+        y:452,
         schoolPositionMap:{}
     },
     "Jiangsu":{
-        x:5,
-        y:5,
+        x:735,
+        y:534,
         schoolPositionMap:{}
     },
     "Guangdong":{
-        x:6,
-        y:6,
+        x:638,
+        y:669,
         schoolPositionMap:{}
     },
     "Hubei":{
-        x:7,
-        y:7,
+        x:624,
+        y:513,
         schoolPositionMap:{}
     },
     "Heilongjiang":{
-        x:8,
-        y:8,
+        x:785,
+        y:158,
         schoolPositionMap:{}
     },
     "Fujian":{
-        x:9,
-        y:9,
+        x:719,
+        y:594,
         schoolPositionMap:{}
     },
     "Tianjin":{
-        x:10,
-        y:10,
+        x:670,
+        y:345,
         schoolPositionMap:{}
     },
     "Shaanxi":{
-        x:11,
-        y:11,
+        x:553,
+        y:439,
         schoolPositionMap:{}
     },
     "Shandong":{
-        x:12,
-        y:12,
+        x:739,
+        y:367,
         schoolPositionMap:{}
     },
     "Liaoning":{
-        x:13,
-        y:13,
+        x:752,
+        y:290,
         schoolPositionMap:{}
     }
 }
@@ -81,3 +81,45 @@ provinceData.forEach(function(item,index){
     temp.itemClusteredBySubject = util.clusterBySubjectName(items);
     provinceSubjectData.push(temp);
 });
+var provinceGlobalSocreRenderData = util.generateRenderData(
+    provinceSubjectData,
+    provincePositionMap,
+    function(itemClusterdByCity){
+        return itemClusterdByCity.provinceName;
+    },
+    function(itemClusterdByCity){
+        var subJectCluster = itemClusterdByCity.itemClusteredBySubject;
+        var sum = 0;
+        var count = 0;
+        subJectCluster.forEach(function(subjectItem,index){
+            var schoolItems = subjectItem.clusterItems;
+            schoolItems.forEach(function(schoolItem,index){
+                sum += parseFloat(schoolItem.GlobalScores);
+                count++;
+            });
+        });
+        return parseInt(sum/count);
+    },
+    function(itemClusterdByCity){
+        return "rgb("+parseInt((Math.random()*255)%155+100)
+                 +","+parseInt((Math.random()*255)%155+100)
+                 +","+parseInt((Math.random()*255)%155+100)+")";
+    }
+);
+
+function renderToCanvas(renderDataList){
+    var mapCanvas = document.getElementById("mapCanvas");
+    mapCanvas.innerHTML = "";
+    var elementString = "";
+    renderDataList.forEach(function(item,index){
+        elementString += ([
+            '<div id="'+item.name+'_Desc" style="position:absolute;top:'+(parseInt(item.positionY)-15)+'px;left:'+(parseInt(item.positionX)-5)+'px;color:'+item.color+';">',
+                item.barData,
+            '</div>',
+            '<div id="'+item.name+'" style="border:1px solid '+item.color+';border-radius:3px;position:absolute;top:'+(item.positionY)+';left:'+(item.positionX)+';width:6px;height:'+(item.barData)+'px;background-color:'+item.color+';">',
+            '</div>'
+        ].join(""));
+    });
+    mapCanvas.innerHTML = elementString;
+}
+renderToCanvas(provinceGlobalSocreRenderData);

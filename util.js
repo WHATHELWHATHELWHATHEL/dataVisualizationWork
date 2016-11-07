@@ -94,7 +94,7 @@ var util  = (function(){
                 }
             );
         },
-        generateRenderData:function(data,positionMap,generateClusterIdFunc,generateScoreFunc,generateScoreColorFunc){
+        generateRenderData:function(data,positionMap,generateClusterIdFunc,generateScoreFunc,generateScoreColorFunc,generateActulDataFunc){
             var result = [];
             data.forEach(function(item,index){
                 result.push({
@@ -102,7 +102,8 @@ var util  = (function(){
                     positionX:(positionMap[generateClusterIdFunc(item)].x-3)+"px",
                     positionY:(positionMap[generateClusterIdFunc(item)].y-generateScoreFunc(item))+"px",
                     barData:generateScoreFunc(item),
-                    color:generateScoreColorFunc(item)
+                    actualData:generateActulDataFunc&&generateActulDataFunc(item),
+                    color:generateScoreColorFunc(positionMap,item)
                 });
             });
             return result;

@@ -4,7 +4,8 @@
         <meta charset="utf-8">
         <title>Data Visualization</title>
         <style media="screen">
-            .basic{
+            .Basic{
+                float:left;
                 width:894px;
                 height:800px;
                 position: relative;
@@ -13,14 +14,187 @@
                 background-repeat: no-repeat;
                 border:5px solid #000000;
             }
+            .ButtonsContainer{
+                float:left;
+                width:500px;
+                margin-left:10px;
+            }
+            .SubButtonsContainer{
+                width:130px;
+                float: left;
+            }
+            .Buttons{
+                width:100px;
+                height:10px;
+                font-size: 8px;
+                padding-top:8px;
+                padding-bottom:8px;
+                text-align: center;
+                margin:5px 5px 0px 5px;
+            }
+            .Choosen{
+                border:3px solid #000000 !important;
+            }
+            .Score{
+                color:#ffffff;
+                background-color: #95ceff;
+                border:3px solid #95ceff;
+            }
+            .Rank{
+                color:#ffffff;
+                background-color: #dc143c;
+                border:3px solid #dc143c;
+            }
         </style>
     </head>
     <body>
-        <div class="basic" id="mapCanvas">
-
+        <div class="Container">
+            <div class="Basic" id="mapCanvas">
+            </div>
+            <div class="ButtonsContainer">
+                <div class="SubButtonsContainer">
+                    <div class="Buttons" id="scoreButton">
+                        成绩分类
+                    </div>
+                    <span id="scoreButtons">
+                        <div class="Buttons Score" id="nation-score-GlobalScore">
+                            综合成绩
+                        </div>
+                        <div class="Buttons Score" id="nation-score-Biology and Biochemistry">
+                            生物与生物化学
+                        </div>
+                        <div class="Buttons Score" id="nation-score-Chemistry">
+                            化学
+                        </div>
+                        <div class="Buttons Score" id="nation-score-Clinical Medicine">
+                            临床药学
+                        </div>
+                        <div class="Buttons Score" id="nation-score-Computer Science">
+                            计算机
+                        </div>
+                        <div class="Buttons Score" id="nation-score-Economics and Business">
+                            经济学
+                        </div>
+                        <div class="Buttons Score" id="nation-score-Engineering">
+                            工程学
+                        </div>
+                        <div class="Buttons Score" id="nation-score-Environment/Ecology">
+                            环境生态学
+                        </div>
+                        <div class="Buttons Score" id="nation-score-Geosciences">
+                            地理学
+                        </div>
+                        <div class="Buttons Score" id="nation-score-Immunology">
+                            免疫学
+                        </div>
+                        <div class="Buttons Score" id="nation-score-Mathematics">
+                            数学
+                        </div>
+                        <div class="Buttons Score" id="nation-score-Microbiology">
+                            微生物学
+                        </div>
+                        <div class="Buttons Score" id="nation-score-Molecular Biology and Genetics">
+                            分子生物与基因学
+                        </div>
+                        <div class="Buttons Score" id="nation-score-Neuroscience and Behavior">
+                            神经科学与行为学
+                        </div>
+                        <div class="Buttons Score" id="nation-score-Pharmacology and Toxicology">
+                            药物毒理学
+                        </div>
+                        <div class="Buttons Score" id="nation-score-Physics">
+                            物理学
+                        </div>
+                        <div class="Buttons Score" id="nation-score-Plant and Animal Science">
+                            动植物学
+                        </div>
+                        <div class="Buttons Score" id="nation-score-Psychiatry/Psychology">
+                            精神心理学
+                        </div>
+                        <div class="Buttons Score" id="nation-score-Social Sciences and Public Health">
+                            社会健康学
+                        </div>
+                        <div class="Buttons Score" id="nation-score-Space Science">
+                            太空科学
+                        </div>
+                    </span>
+                </div>
+                <div class="SubButtonsContainer" >
+                    <div class="Buttons" id="rankButton">
+                        排名分类
+                    </div>
+                    <span id="rankButtons">
+                        <div class="Buttons Rank" id="nation-rank-GlobalScore">
+                            综合成绩
+                        </div>
+                        <div class="Buttons Rank" id="nation-rank-Biology and Biochemistry">
+                            生物与生物化学
+                        </div>
+                        <div class="Buttons Rank" id="nation-rank-Chemistry">
+                            化学
+                        </div>
+                        <div class="Buttons Rank" id="nation-rank-Clinical Medicine">
+                            临床药学
+                        </div>
+                        <div class="Buttons Rank" id="nation-rank-Computer Science">
+                            计算机
+                        </div>
+                        <div class="Buttons Rank" id="nation-rank-Economics and Business">
+                            经济学
+                        </div>
+                        <div class="Buttons Rank" id="nation-rank-Engineering">
+                            工程学
+                        </div>
+                        <div class="Buttons Rank" id="nation-rank-Environment/Ecology">
+                            环境生态学
+                        </div>
+                        <div class="Buttons Rank" id="nation-rank-Geosciences">
+                            地理学
+                        </div>
+                        <div class="Buttons Rank" id="nation-rank-Immunology">
+                            免疫学
+                        </div>
+                        <div class="Buttons Rank" id="nation-rank-Mathematics">
+                            数学
+                        </div>
+                        <div class="Buttons Rank" id="nation-rank-Microbiology">
+                            微生物学
+                        </div>
+                        <div class="Buttons Rank" id="nation-rank-Molecular Biology and Genetics">
+                            分子生物与基因学
+                        </div>
+                        <div class="Buttons Rank" id="nation-rank-Neuroscience and Behavior">
+                            神经科学与行为学
+                        </div>
+                        <div class="Buttons Rank" id="nation-rank-Pharmacology and Toxicology">
+                            药物毒理学
+                        </div>
+                        <div class="Buttons Rank" id="nation-rank-Physics">
+                            物理学
+                        </div>
+                        <div class="Buttons Rank" id="nation-rank-Plant and Animal Science">
+                            动植物学
+                        </div>
+                        <div class="Buttons Rank" id="nation-rank-Psychiatry/Psychology">
+                            精神心理学
+                        </div>
+                        <div class="Buttons Rank" id="nation-rank-Social Sciences and Public Health">
+                            社会健康学
+                        </div>
+                        <div class="Buttons Rank" id="nation-rank-Space Science">
+                            太空科学
+                        </div>
+                    </span>
+                </div>
+                <div style="clear:both">
+                </div>
+            </div>
+            <div style="clear:both;">
+            </div>
         </div>
     </body>
     <!--this file import data.js, which contain the data transformed from rawData.csv-->
+    <script type="text/javascript" src="jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="data.js"></script>
     <script type="text/javascript" src="util.js"></script>
     <script type="text/javascript" src="index.js"></script>
